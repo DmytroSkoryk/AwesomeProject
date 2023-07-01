@@ -1,73 +1,97 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
   SafeAreaView,
-  TextInput,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
   Text,
   View,
-  Dimensions,
-  TouchableOpacity,
+  Alert,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import BackgroundImage from "../Images/BackgroundImage.jpg";
+import Input from "../components/input";
+import Button from "../components/button";
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
+  const onRegistration = () => {
+    Alert.alert("Credentials", `${login}, ${mail}, ${password}`);
+    resetForm();
+  };
+  const resetForm = () => {
+    setLogin("");
+    setMail("");
+    setPassword("");
+  };
+  const [login, setLogin] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground
           source={BackgroundImage}
           style={styles.backgroundImage}
-        />
-
-        <SafeAreaView style={styles.form}>
-          <Text style={styles.formTitle}>Реєстрація</Text>
-          <View style={styles.inputContainer}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS == "ios" ? "padding" : "height"}
-            >
-              <TextInput
-                placeholder="Логін"
-                style={styles.input}
-                placeholderTextColor="#BDBDBD"
+        >
+          <SafeAreaView style={styles.form}>
+            <View style={styles.photoContainer}>
+              <Ionicons
+                name="add-circle-outline"
+                size={25}
+                color="#FF6C00"
+                style={styles.addBtn}
               />
-              <TextInput
-                placeholder="Адреса електронної пошти"
-                style={styles.input}
-                placeholderTextColor="#BDBDBD"
-              />
-              <TextInput
-                placeholder="Пароль"
-                style={styles.input}
-                placeholderTextColor="#BDBDBD"
-              />
-              <TouchableOpacity
-                style={styles.registrationButton}
-                onPress={() => {}}
+            </View>
+            <Text style={styles.formTitle}>Реєстрація</Text>
+            <View style={styles.inputContainer}>
+              <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
               >
-                <Text style={styles.buttonText}>Зареєструватися</Text>
-              </TouchableOpacity>
-              <Text style={styles.linkOpen}>Вже є акаунт? Увійти</Text>
-            </KeyboardAvoidingView>
-          </View>
-        </SafeAreaView>
+                <Input
+                  placeholder="Логін"
+                  onChangeText={setLogin}
+                  value={login}
+                />
+                <Input
+                  placeholder="Адреса електронної пошти"
+                  onChangeText={setMail}
+                  value={mail}
+                />
+                <Input
+                  placeholder="Пароль"
+                  onChangeText={setPassword}
+                  value={password}
+                />
+                <Button onPress={onRegistration} title="Зареєструватися" />
+                <View style={styles.link}>
+                  <Text style={styles.textQuestion}>Вже є акаунт? </Text>
+                  <Text onPress={() => navigation.navigate("Login")}>
+                    <Text style={[styles.textQuestion, styles.linkOpen]}>
+                      Увійти
+                    </Text>
+                  </Text>
+                </View>
+              </KeyboardAvoidingView>
+            </View>
+          </SafeAreaView>
+        </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
   );
 };
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   backgroundImage: {
     flex: 1,
-    width: windowWidth,
-    height: windowHeight,
+    resizeMode: "cover",
+    justifyContent: "flex-end",
   },
+
   formTitle: {
     color: "#212121",
     fontSize: 30,
@@ -81,42 +105,43 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: "#FFFFFF",
-    width: windowWidth,
-    height: 549,
-    marginTop: 263,
+    position: "relative",
   },
   inputContainer: {
     marginHorizontal: 16,
   },
-  input: {
-    height: 50,
-    width: "100%",
+
+  link: {
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 16,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 10,
-    borderColor: "#E8E8E8",
-    fontFamily: "Roboto-Medium",
-    fontSize: 16,
-    color: "#212121",
+    marginBottom: 45,
   },
-  registrationButton: {
-    marginTop: 43,
-    paddingHorizontal: 32,
-    paddingVertical: 16,
-    backgroundColor: "#FF6C00",
-    borderRadius: 100,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#FFFFFF",
+  textQuestion: {
     fontSize: 16,
     fontFamily: "Roboto-Medium",
+    color: "#1B4371",
   },
   linkOpen: {
-    textAlign: "center",
-    marginTop: 16,
+    textDecorationLine: "underline",
+  },
+  photoContainer: {
+    position: "absolute",
+    top: -60,
+    left: "50%",
+    transform: [{ translateX: -60 }],
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
+  },
+  addBtn: {
+    position: "absolute",
+
+    right: -28,
+    bottom: 8,
+
+    paddingHorizontal: 16,
   },
 });
 
