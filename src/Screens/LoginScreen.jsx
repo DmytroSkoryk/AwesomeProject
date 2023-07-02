@@ -27,7 +27,11 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.container}
+        keyboardVerticalOffset={-260}
+      >
         <ImageBackground
           source={BackgroundImage}
           style={styles.backgroundImage}
@@ -35,33 +39,29 @@ const LoginScreen = ({ navigation }) => {
           <SafeAreaView style={styles.form}>
             <Text style={styles.formTitle}>Увійти</Text>
             <View style={styles.inputContainer}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? "padding" : "height"}
-              >
-                <Input
-                  placeholder="Адреса електронної пошти"
-                  onChangeText={setMail}
-                  value={mail}
-                />
-                <Input
-                  placeholder="Пароль"
-                  onChangeText={setPassword}
-                  value={password}
-                />
-                <Button onPress={onLogin} title="Увійти" />
-                <View style={styles.link}>
-                  <Text style={styles.textQuestion}>Немає акаунту? </Text>
-                  <Text onPress={() => navigation.navigate("Registration")}>
-                    <Text style={[styles.textQuestion, styles.linkOpen]}>
-                      Зареєструватися
-                    </Text>
+              <Input
+                placeholder="Адреса електронної пошти"
+                onChangeText={setMail}
+                value={mail}
+              />
+              <Input
+                placeholder="Пароль"
+                onChangeText={setPassword}
+                value={password}
+              />
+              <Button onPress={onLogin} title="Увійти" />
+              <View style={styles.link}>
+                <Text style={styles.textQuestion}>Немає акаунту? </Text>
+                <Text onPress={() => navigation.navigate("Registration")}>
+                  <Text style={[styles.textQuestion, styles.linkOpen]}>
+                    Зареєструватися
                   </Text>
-                </View>
-              </KeyboardAvoidingView>
+                </Text>
+              </View>
             </View>
           </SafeAreaView>
         </ImageBackground>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };

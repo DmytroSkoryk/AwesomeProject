@@ -10,74 +10,73 @@ import {
   View,
   Alert,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+
 import BackgroundImage from "../Images/BackgroundImage.jpg";
 import Input from "../components/input";
 import Button from "../components/button";
+import UserPhoto from "../components/UserPhoto";
 
 const RegistrationScreen = ({ navigation }) => {
   const onRegistration = () => {
     Alert.alert("Credentials", `${login}, ${mail}, ${password}`);
     resetForm();
   };
+
   const resetForm = () => {
     setLogin("");
     setMail("");
     setPassword("");
   };
+
   const [login, setLogin] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        keyboardVerticalOffset={-180}
+      >
         <ImageBackground
           source={BackgroundImage}
           style={styles.backgroundImage}
         >
           <SafeAreaView style={styles.form}>
             <View style={styles.photoContainer}>
-              <Ionicons
-                name="add-circle-outline"
-                size={25}
-                color="#FF6C00"
-                style={styles.addBtn}
-              />
+              <UserPhoto />
             </View>
             <Text style={styles.formTitle}>Реєстрація</Text>
             <View style={styles.inputContainer}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? "padding" : "height"}
-              >
-                <Input
-                  placeholder="Логін"
-                  onChangeText={setLogin}
-                  value={login}
-                />
-                <Input
-                  placeholder="Адреса електронної пошти"
-                  onChangeText={setMail}
-                  value={mail}
-                />
-                <Input
-                  placeholder="Пароль"
-                  onChangeText={setPassword}
-                  value={password}
-                />
-                <Button onPress={onRegistration} title="Зареєструватися" />
-                <View style={styles.link}>
-                  <Text style={styles.textQuestion}>Вже є акаунт? </Text>
-                  <Text onPress={() => navigation.navigate("Login")}>
-                    <Text style={[styles.textQuestion, styles.linkOpen]}>
-                      Увійти
-                    </Text>
+              <Input
+                placeholder="Логін"
+                onChangeText={setLogin}
+                value={login}
+              />
+              <Input
+                placeholder="Адреса електронної пошти"
+                onChangeText={setMail}
+                value={mail}
+              />
+              <Input
+                placeholder="Пароль"
+                onChangeText={setPassword}
+                value={password}
+              />
+              <Button onPress={onRegistration} title="Зареєструватися" />
+              <View style={styles.link}>
+                <Text style={styles.textQuestion}>Вже є акаунт? </Text>
+                <Text onPress={() => navigation.navigate("Login")}>
+                  <Text style={[styles.textQuestion, styles.linkOpen]}>
+                    Увійти
                   </Text>
-                </View>
-              </KeyboardAvoidingView>
+                </Text>
+              </View>
             </View>
           </SafeAreaView>
         </ImageBackground>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "flex-end",
   },
-
   formTitle: {
     color: "#212121",
     fontSize: 30,
@@ -105,12 +103,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: "#FFFFFF",
-    position: "relative",
   },
   inputContainer: {
     marginHorizontal: 16,
   },
-
   link: {
     flexDirection: "row",
     justifyContent: "center",
@@ -137,10 +133,8 @@ const styles = StyleSheet.create({
   },
   addBtn: {
     position: "absolute",
-
     right: -28,
     bottom: 8,
-
     paddingHorizontal: 16,
   },
 });
