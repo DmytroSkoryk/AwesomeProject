@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import RegistrationScreen from "./src/Screens/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
+import Home from "./src/Screens/Home";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -15,6 +16,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
   });
 
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function App() {
       await Font.loadAsync({
         "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
         "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+        "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
       });
     }
     loadFonts();
@@ -33,7 +36,7 @@ export default function App() {
 
   return (
     <NavigationContainer style={styles.container}>
-      <MainStack.Navigator initialRouteName="Registration">
+      <MainStack.Navigator initialRouteName="Login">
         <MainStack.Screen
           name="Registration"
           component={RegistrationScreen}
@@ -43,6 +46,21 @@ export default function App() {
           name="Login"
           component={LoginScreen}
           options={{ headerShown: false }}
+        />
+        <MainStack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontSize: 17,
+              fontFamily: "Roboto-Medium",
+              color: "#212121",
+              lineHeight: 22,
+              letterSpacing: -0.408,
+            },
+          }}
         />
       </MainStack.Navigator>
       <StatusBar style="auto" />

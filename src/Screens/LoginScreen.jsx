@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   ImageBackground,
   StyleSheet,
@@ -11,13 +12,17 @@ import {
   Alert,
 } from "react-native";
 import BackgroundImage from "../Images/BackgroundImage.jpg";
-import Input from "../components/input";
-import Button from "../components/button";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 const LoginScreen = ({ navigation }) => {
   const onLogin = () => {
-    Alert.alert("Credentials", `${mail} + ${password}`);
-    resetForm();
+    if (mail && password !== "") {
+      navigation.navigate("Home", { mail: mail });
+      resetForm();
+    } else {
+      Alert.alert("Заповніть форму");
+    }
   };
   const resetForm = () => {
     setMail("");

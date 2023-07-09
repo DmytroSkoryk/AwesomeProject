@@ -12,14 +12,18 @@ import {
 } from "react-native";
 
 import BackgroundImage from "../Images/BackgroundImage.jpg";
-import Input from "../components/input";
-import Button from "../components/button";
+import Input from "../components/Input";
+import Button from "../components/Button";
 import UserPhoto from "../components/UserPhoto";
 
 const RegistrationScreen = ({ navigation }) => {
   const onRegistration = () => {
-    Alert.alert("Credentials", `${login}, ${mail}, ${password}`);
-    resetForm();
+    if (login && mail && password !== "") {
+      navigation.navigate("Home", { mail: mail });
+      resetForm();
+    } else {
+      Alert.alert("Заповніть форму реєстрації");
+    }
   };
 
   const resetForm = () => {
