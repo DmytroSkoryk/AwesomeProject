@@ -10,16 +10,17 @@ import {
   View,
   Alert,
 } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 import BackgroundImage from "../Images/BackgroundImage.jpg";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import UserPhoto from "../components/UserPhoto";
 
-const RegistrationScreen = ({ navigation }) => {
+const RegistrationScreen = () => {
+  const navigation = useNavigation();
   const onRegistration = () => {
     if (login && mail && password !== "") {
-      navigation.navigate("Home", { mail: mail });
+      navigation.navigate("HomeBottomNavigator", { mail: mail });
       resetForm();
     } else {
       Alert.alert("Заповніть форму реєстрації");
@@ -71,10 +72,11 @@ const RegistrationScreen = ({ navigation }) => {
               <Button onPress={onRegistration} title="Зареєструватися" />
               <View style={styles.link}>
                 <Text style={styles.textQuestion}>Вже є акаунт? </Text>
-                <Text onPress={() => navigation.navigate("Login")}>
-                  <Text style={[styles.textQuestion, styles.linkOpen]}>
-                    Увійти
-                  </Text>
+                <Text
+                  style={[styles.textQuestion, styles.linkOpen]}
+                  onPress={() => navigation.navigate("Login")}
+                >
+                  Увійти
                 </Text>
               </View>
             </View>

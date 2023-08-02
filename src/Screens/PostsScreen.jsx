@@ -1,16 +1,20 @@
 import { View, Text, Image, StyleSheet } from "react-native";
+import Posts from "../components/Posts";
 
 import Ava from "../Images/Ava.jpg";
 
 const PostsScreen = ({ route }) => {
   const { mail } = route.params;
   return (
-    <View style={styles.userInfo}>
-      <Image source={Ava} style={styles.photo} />
-      <View style={styles.textContainer}>
-        <Text style={styles.userName}>Natali Romanova</Text>
-        <Text style={styles.userEmail}>{mail}</Text>
+    <View>
+      <View style={styles.userInfo}>
+        <Image source={Ava} style={styles.photo} />
+        <View style={styles.textContainer}>
+          <Text style={styles.userName}>Natali Romanova</Text>
+          <Text style={styles.userEmail}>{mail}</Text>
+        </View>
       </View>
+      <Posts />
     </View>
   );
 };

@@ -1,16 +1,16 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AntDesign, SimpleLineIcons, Feather } from "@expo/vector-icons";
-import PostsScreen from "./PostsScreen";
-import CreatePostsScreen from "./CreatePostsScreen";
-import ProfileScreen from "./ProfileScreen";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import PostsScreen from "../Screens/PostsScreen";
+import CreatePostsScreen from "../Screens/CreatePostsScreen";
+import ProfileScreen from "../Screens/ProfileScreen";
 import LogOut from "../components/LogOut";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
 
-const Home = () => {
+const HomeBottomNavigator = () => {
   const navigation = useNavigation();
   const {
     params: { mail },
@@ -23,42 +23,31 @@ const Home = () => {
           let iconName;
           if (route.name === "Публікації") {
             iconName = (
-              <View
-                style={[
-                  styles.footerItems,
-                  styles.leftItem,
-                  focused && styles.activeItem,
-                ]}
-              >
-                <SimpleLineIcons name="grid" size={24} color={color} />
+              <View style={[styles.footerItems, focused && styles.activeItem]}>
+                <Feather name="grid" size={size} color={color} />
               </View>
             );
-          } else if (route.name === "Створити публікацію") {
+          } else if (route.name === "CreatePostsScreen") {
             iconName = (
-              <View style={[styles.footerItems, focused && styles.activeItem]}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Створити публікацію")}
+                style={[styles.footerItems, focused && styles.activeItem]}
+              >
                 <AntDesign name="plus" size={size} color={color} />
-              </View>
+              </TouchableOpacity>
             );
           } else if (route.name === "ProfileScreen") {
             iconName = (
-              <View
-                style={[
-                  styles.footerItems,
-                  styles.rightItem,
-                  focused && styles.activeItem,
-                ]}
-              >
+              <View style={[styles.footerItems, focused && styles.activeItem]}>
                 <Feather name="user" size={size} color={color} />
               </View>
             );
           }
           return iconName;
         },
+        tabBarActiveTintColor: "#FFF",
+        tabBarInactiveTintColor: "rgba(33, 33, 33, 0.8)",
       })}
-      tabBarOptions={{
-        activeTintColor: "#FFF",
-        inactiveTintColor: "rgba(33, 33, 33, 0.8)",
-      }}
     >
       <Tabs.Screen
         initialParams={{ mail }}
@@ -71,17 +60,11 @@ const Home = () => {
         }}
       />
       <Tabs.Screen
-        name="Створити публікацію"
+        name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
+          headerShown: false,
           headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontSize: 17,
-            fontFamily: "Roboto-Medium",
-            color: "#212121",
-            lineHeight: 22,
-            letterSpacing: -0.408,
-          },
           tabBarLabel: "",
         }}
       />
@@ -91,13 +74,6 @@ const Home = () => {
         options={{
           headerShown: false,
           headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontSize: 17,
-            fontFamily: "Roboto-Medium",
-            color: "#212121",
-            lineHeight: 22,
-            letterSpacing: -0.408,
-          },
           tabBarLabel: "",
         }}
       />
@@ -116,15 +92,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 50,
   },
-  leftItem: {
-    alignSelf: "flex-end",
-  },
-  rightItem: {
-    alignSelf: "flex-start",
-  },
   activeItem: {
     backgroundColor: "rgba(255, 108, 0, 1)",
+    width: 70,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
   },
 });
 
-export default Home;
+export default HomeBottomNavigator;

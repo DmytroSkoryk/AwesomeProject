@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigation } from "@react-navigation/native";
 import {
   ImageBackground,
   StyleSheet,
@@ -15,10 +15,11 @@ import BackgroundImage from "../Images/BackgroundImage.jpg";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+  const navigation = useNavigation();
   const onLogin = () => {
     if (mail && password !== "") {
-      navigation.navigate("Home", { mail: mail });
+      navigation.navigate("HomeBottomNavigator", { mail: mail });
       resetForm();
     } else {
       Alert.alert("Заповніть форму");
@@ -57,10 +58,11 @@ const LoginScreen = ({ navigation }) => {
               <Button onPress={onLogin} title="Увійти" />
               <View style={styles.link}>
                 <Text style={styles.textQuestion}>Немає акаунту? </Text>
-                <Text onPress={() => navigation.navigate("Registration")}>
-                  <Text style={[styles.textQuestion, styles.linkOpen]}>
-                    Зареєструватися
-                  </Text>
+                <Text
+                  style={[styles.textQuestion, styles.linkOpen]}
+                  onPress={() => navigation.navigate("Registration")}
+                >
+                  Зареєструватися
                 </Text>
               </View>
             </View>

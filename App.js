@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
-import RegistrationScreen from "./src/Screens/RegistrationScreen";
-import LoginScreen from "./src/Screens/LoginScreen";
-import Home from "./src/Screens/Home";
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import * as Font from "expo-font";
 
-const MainStack = createStackNavigator();
+import { useFonts } from "expo-font";
+
+import RootNavigator from "./src/navigation/RootNavigator";
+import "react-native-gesture-handler";
+
+import * as Font from "expo-font";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -34,45 +29,5 @@ export default function App() {
     return null;
   }
 
-  return (
-    <NavigationContainer style={styles.container}>
-      <MainStack.Navigator initialRouteName="Login">
-        <MainStack.Screen
-          name="Registration"
-          component={RegistrationScreen}
-          options={{ headerShown: false }}
-        />
-        <MainStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <MainStack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-            headerTitleAlign: "center",
-            headerTitleStyle: {
-              fontSize: 17,
-              fontFamily: "Roboto-Medium",
-              color: "#212121",
-              lineHeight: 22,
-              letterSpacing: -0.408,
-            },
-          }}
-        />
-      </MainStack.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
-  );
+  return <RootNavigator />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
