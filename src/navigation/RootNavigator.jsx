@@ -7,7 +7,7 @@ import CommentsScreen from "../Screens/CommentsScreen";
 import MapScreen from "../Screens/MapScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import PostsScreen from "../Screens/PostsScreen";
 const MainStack = createStackNavigator();
 
 const RootNavigator = () => {
@@ -63,6 +63,20 @@ const RootNavigator = () => {
         <MainStack.Screen
           name="MapScreen"
           component={MapScreen}
+          options={{
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontSize: 17,
+              fontFamily: "Roboto-Medium",
+              color: "#212121",
+              lineHeight: 22,
+              letterSpacing: -0.408,
+            },
+          }}
+        />
+        <MainStack.Screen
+          name="Публікації"
+          component={PostsScreen}
           options={{
             headerTitleAlign: "center",
             headerTitleStyle: {

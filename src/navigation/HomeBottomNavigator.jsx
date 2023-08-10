@@ -12,9 +12,6 @@ const Tabs = createBottomTabNavigator();
 
 const HomeBottomNavigator = () => {
   const navigation = useNavigation();
-  const {
-    params: { mail },
-  } = useRoute();
 
   return (
     <Tabs.Navigator
@@ -27,7 +24,7 @@ const HomeBottomNavigator = () => {
                 <Feather name="grid" size={size} color={color} />
               </View>
             );
-          } else if (route.name === "CreatePostsScreen") {
+          } else if (route.name === "Створити публікацію") {
             iconName = (
               <TouchableOpacity
                 onPress={() => navigation.navigate("Створити публікацію")}
@@ -50,7 +47,6 @@ const HomeBottomNavigator = () => {
       })}
     >
       <Tabs.Screen
-        initialParams={{ mail }}
         name="Публікації"
         component={PostsScreen}
         options={{
@@ -60,7 +56,7 @@ const HomeBottomNavigator = () => {
         }}
       />
       <Tabs.Screen
-        name="CreatePostsScreen"
+        name="Створити публікацію"
         component={CreatePostsScreen}
         options={{
           headerShown: false,

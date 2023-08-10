@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const Posts = ({ elements }) => {
+const ProfilePosts = ({ elements }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -13,18 +13,22 @@ const Posts = ({ elements }) => {
       </View>
       <Text style={styles.publicationTitle}>{elements.postName}</Text>
       <View style={styles.publicationData}>
-        <View style={styles.comments}>
-          <TouchableOpacity onPress={() => navigation.navigate("Коментарі")}>
-            <Feather name="message-circle" size={24} color="#BDBDBD" />
-          </TouchableOpacity>
-          <Text style={styles.commentsCount}>0</Text>
+        <View style={styles.commentsAndLikesContainer}>
+          <View style={styles.commentsAndLikes}>
+            <TouchableOpacity onPress={() => navigation.navigate("Коментарі")}>
+              <Feather name="message-circle" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+            <Text style={styles.count}>8</Text>
+          </View>
+          <View style={styles.commentsAndLikes}>
+            <AntDesign name="like2" size={24} color="#BDBDBD" />
+            <Text style={styles.count}>153</Text>
+          </View>
         </View>
 
         <View style={styles.locality}>
-          <TouchableOpacity onPress={() => navigation.navigate("MapScreen")}>
-            <Feather name="map-pin" size={24} color="#BDBDBD" />
-          </TouchableOpacity>
-          <Text style={styles.localityTitle}>{elements.locality}</Text>
+          <Feather name="map-pin" size={24} color="#BDBDBD" />
+          <Text style={styles.localityTitle}>Ukraine</Text>
         </View>
       </View>
     </View>
@@ -32,9 +36,6 @@ const Posts = ({ elements }) => {
 };
 
 const styles = StyleSheet.create({
-  postsContainer: {
-    marginHorizontal: 16,
-  },
   photoContainer: {
     alignItems: "center",
     marginTop: 32,
@@ -58,11 +59,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 10,
   },
-  comments: {
+  commentsAndLikesContainer: {
+    flexDirection: "row",
+    gap: 24,
+  },
+  commentsAndLikes: {
     flexDirection: "row",
     color: "#BDBDBD",
   },
-  commentsCount: {
+  count: {
     color: "#BDBDBD",
     fontSize: 16,
     fontFamily: "Roboto-Regular",
@@ -78,4 +83,4 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
 });
-export default Posts;
+export default ProfilePosts;

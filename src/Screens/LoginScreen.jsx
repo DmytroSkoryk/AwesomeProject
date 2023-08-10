@@ -19,7 +19,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const onLogin = () => {
     if (mail && password !== "") {
-      navigation.navigate("HomeBottomNavigator", { mail: mail });
+      navigation.navigate("HomeBottomNavigator");
       resetForm();
     } else {
       Alert.alert("Заповніть форму");
@@ -31,6 +31,7 @@ const LoginScreen = () => {
   };
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -76,6 +77,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
   backgroundImage: {
     flex: 1,
